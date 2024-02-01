@@ -51,9 +51,9 @@ public class Startup
                 if (int.TryParse(useridStr, out int userid))
                 {
                     var user = _userCollection.Find(Builders<BsonDocument>.Filter.Eq("userid", userid)).FirstOrDefault();
-                    var userMapped = BsonTypeMapper.MapToDotNetValue(user);
-                    if (userMapped != null)
+                    if (user != null)
                     {
+                        var userMapped = BsonTypeMapper.MapToDotNetValue(user);
                         await context.Response.WriteAsJsonAsync(userMapped);
                     }
                     else
